@@ -21,7 +21,11 @@ class HelmTest {
                         val expectedTestOutputDir = it.resolve("expected-test-output")
                         val actualTestOutputDir = it.resolve("build/actual-test-output")
                         recreateDir(actualTestOutputDir)
-                        shellRun("helm", listOf("template", it.fileName.toString(), "-f", "${it.fileName}/values.yaml", "-f", "${it.fileName}/test-values.yaml", "--output-dir", actualTestOutputDir.toString()))
+                        shellRun(
+                            "helm",
+                            listOf("template", it.fileName.toString(), ".", "-f", "values.yaml", "-f", "test-values.yaml", "--output-dir", it.relativize(actualTestOutputDir).toString()),
+                            it.toFile()
+                        )
                         if (UPDATE_EXPECTED_TEST_OUTPUTS) {
                             recreateDir(expectedTestOutputDir)
                             copyDirRecursively(actualTestOutputDir, expectedTestOutputDir)
@@ -41,7 +45,7 @@ class HelmTest {
     }
 
     private fun getHelmChartDirs(): Stream<Path> {
-        return Files.list(Path.of("."))
+        return Files.list(Path.of("charts"))
                 .filter { Files.isDirectory(it) && Files.exists(it.resolve("Chart.yaml")) }
     }
 
