@@ -1,0 +1,23 @@
+version: 1.2.3
+app:
+  env:
+    APP_TEST_ENV_1: APP_TEST_VALUE_1
+    APP_TEST_ENV_2: APP_TEST_VALUE_2
+  secrets:
+    APP_TEST_SECRET_1:
+      secretName: APP_TEST_SECRET_NAME_1
+      secretKey: APP_TEST_SECRET_KEY_1
+    APP_TEST_SECRET_2:
+      secretName: APP_TEST_SECRET_NAME_2
+      secretKey: APP_TEST_SECRET_KEY_2
+service:
+  env:
+    SERVICE_TEST_ENV_1: SERVICE_TEST_VALUE_1
+    SERVICE_TEST_ENV_2: SERVICE_TEST_VALUE_2
+  secrets:
+    SERVICE_TEST_SECRET_1:
+      secretName: SERVICE_TEST_SECRET_NAME_1
+      secretKey: SERVICE_TEST_SECRET_KEY_1
+    SERVICE_TEST_SECRET_2:
+      secretName: SERVICE_TEST_SECRET_NAME_2
+      secretKey: SERVICE_TEST_SECRET_KEY_2

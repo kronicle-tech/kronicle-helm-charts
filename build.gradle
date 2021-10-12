@@ -1,0 +1,47 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply from: "gradle/kronicle-metadata.gradle"
+
+tasks.named('wrapper') {
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.8.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    testImplementation platform('org.jetbrains.kotlin:kotlin-bom')
+    testImplementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+
+    testImplementation 'com.lordcodes.turtle:turtle:0.5.0'
+    testImplementation 'org.assertj:assertj-core:3.21.0'
+}
+
+test {
+    projectDir.eachDir {
+        if (new File(it, 'expected-test-output').exists()) {
+            inputs.files(new File(it, '.helmignore'),
+                    new File(it, 'Chart.yaml'),
+                    new File(it, 'test-values.yaml'),
+                    new File(it, 'values.yaml'),
+                    new File(it, 'values-*.yaml'))
+            inputs.dir new File(it, 'expected-test-output')
+            inputs.dir new File(it, 'templates')
+        }
+    }
+
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    if (project.hasProperty('update')) {
+        environment 'UPDATE_EXPECTED_TEST_OUTPUTS', 'true'
+    }
+}

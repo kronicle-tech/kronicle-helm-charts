@@ -1,0 +1,19 @@
+# This file is read automatically by Kronicle https://kronicle.tech
+
+components:
+
+  - id: kronicle-helm-chart
+    name: Kronicle Helm Chart
+    typeId: helm-chart
+    description: |
+      The Helm chart is used to deploy Kronicle to a Kubernetes cluster
+    repo:
+      url: https://github.com/kronicle-tech/kronicle-helm-charts.git
+    teams:
+      - teamId: kronicle-project
+        description: |
+          The Kroncile Project maintains this Helm chart
+    links:
+      - url: https://helm.sh/docs/topics/charts/
+        description: |
+          The Helm website
