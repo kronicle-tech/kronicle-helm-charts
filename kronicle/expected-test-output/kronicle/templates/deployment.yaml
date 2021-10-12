@@ -1,0 +1,76 @@
+---
+# Source: kronicle/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kronicle-app
+  labels:
+    app: kronicle-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kronicle-app
+  template:
+    metadata:
+      labels:
+        app: kronicle-app
+    spec:
+      containers:
+        - name: kronicle-app
+          image: ghcr.io/kronicle-tech/kronicle-app:1.2.3
+          env:
+            - name: "APP_TEST_ENV_1"
+              value: "APP_TEST_VALUE_1"
+            - name: "APP_TEST_ENV_2"
+              value: "APP_TEST_VALUE_2"
+            - name: "APP_TEST_SECRET_1"
+              valueFrom:
+                secretKeyRef:
+                  name: "APP_TEST_SECRET_NAME_1"
+                  key: "APP_TEST_SECRET_KEY_1"
+            - name: "APP_TEST_SECRET_2"
+              valueFrom:
+                secretKeyRef:
+                  name: "APP_TEST_SECRET_NAME_2"
+                  key: "APP_TEST_SECRET_KEY_2"
+          ports:
+            - containerPort: 3000
+---
+# Source: kronicle/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kronicle-service
+  labels:
+    app: kronicle-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kronicle-service
+  template:
+    metadata:
+      labels:
+        app: kronicle-service
+    spec:
+      containers:
+        - name: kronicle-service
+          image: ghcr.io/kronicle-tech/kronicle-service:1.2.3
+          env:
+            - name: "SERVICE_TEST_ENV_1"
+              value: "SERVICE_TEST_VALUE_1"
+            - name: "SERVICE_TEST_ENV_2"
+              value: "SERVICE_TEST_VALUE_2"
+            - name: "SERVICE_TEST_SECRET_1"
+              valueFrom:
+                secretKeyRef:
+                  name: "SERVICE_TEST_SECRET_NAME_1"
+                  key: "SERVICE_TEST_SECRET_KEY_1"
+            - name: "SERVICE_TEST_SECRET_2"
+              valueFrom:
+                secretKeyRef:
+                  name: "SERVICE_TEST_SECRET_NAME_2"
+                  key: "SERVICE_TEST_SECRET_KEY_2"
+          ports:
+            - containerPort: 8090

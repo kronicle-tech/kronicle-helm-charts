@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kronicle-app
+  labels:
+    app: kronicle-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kronicle-app
+  template:
+    metadata:
+      labels:
+        app: kronicle-app
+    spec:
+      containers:
+        - name: kronicle-app
+          image: ghcr.io/kronicle-tech/kronicle-app:{{ .Values.version | required ".Values.version is required" }}
+          env:
+{{- range $name, $value := .Values.app.env }}
+            - name: {{ $name | quote }}
+              value: {{ $value | quote }}
+{{- end }}
+{{- range $name, $value := .Values.app.secrets }}
+            - name: {{ $name | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $value.secretName | quote }}
+                  key: {{ $value.secretKey | quote }}
+{{- end }}
+          ports:
+            - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kronicle-service
+  labels:
+    app: kronicle-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kronicle-service
+  template:
+    metadata:
+      labels:
+        app: kronicle-service
+    spec:
+      containers:
+        - name: kronicle-service
+          image: ghcr.io/kronicle-tech/kronicle-service:{{ .Values.version | required ".Values.version is required" }}
+          env:
+{{- range $name, $value := .Values.service.env }}
+            - name: {{ $name | quote }}
+              value: {{ $value | quote }}
+{{- end }}
+{{- range $name, $value := .Values.service.secrets }}
+            - name: {{ $name | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $value.secretName | quote }}
+                  key: {{ $value.secretKey | quote }}
+{{- end }}
+          ports:
+            - containerPort: 8090
