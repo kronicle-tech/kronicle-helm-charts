@@ -1,5 +1,6 @@
 app:
-  env: {}
+  env:
+    SERVER_SIDE_SERVICE_BASE_URL: http://kronicle-service.svc.cluster.local
   secrets: {}
 service:
   env: {}
