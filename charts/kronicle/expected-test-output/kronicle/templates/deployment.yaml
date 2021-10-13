@@ -20,12 +20,12 @@ spec:
         - name: kronicle-app
           image: ghcr.io/kronicle-tech/kronicle-app:1.2.3
           env:
+            - name: "SERVER_SIDE_SERVICE_BASE_URL"
+              value: "http://kronicle-service.test-namespace.svc.cluster.local"
             - name: "APP_TEST_ENV_1"
               value: "APP_TEST_VALUE_1"
             - name: "APP_TEST_ENV_2"
               value: "APP_TEST_VALUE_2"
-            - name: "SERVER_SIDE_SERVICE_BASE_URL"
-              value: "http://kronicle-service.svc.cluster.local"
             - name: "APP_TEST_SECRET_1"
               valueFrom:
                 secretKeyRef:

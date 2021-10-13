@@ -18,6 +18,10 @@ spec:
         - name: kronicle-app
           image: ghcr.io/kronicle-tech/kronicle-app:{{ .Values.version | required ".Values.version is required" }}
           env:
+{{- if not $.Values.app.env.SERVER_SIDE_SERVICE_BASE_URL }}
+            - name: "SERVER_SIDE_SERVICE_BASE_URL"
+              value: "http://kronicle-service.{{ $.Release.Namespace }}.svc.cluster.local"
+{{- end }}
 {{- range $name, $value := .Values.app.env }}
             - name: {{ $name | quote }}
               value: {{ $value | quote }}

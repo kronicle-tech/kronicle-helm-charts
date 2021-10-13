@@ -24,7 +24,7 @@ dependencies {
 }
 
 test {
-    projectDir.eachDir {
+    new File('charts').eachDir {
         if (new File(it, 'expected-test-output').exists()) {
             inputs.files(new File(it, '.helmignore'),
                     new File(it, 'Chart.yaml'),
