@@ -23,7 +23,18 @@ class HelmTest {
                         recreateDir(actualTestOutputDir)
                         shellRun(
                             "helm",
-                            listOf("template", it.fileName.toString(), ".", "-f", "values.yaml", "-f", "test-values.yaml", "--output-dir", it.relativize(actualTestOutputDir).toString()),
+                            listOf(
+                                "template",
+                                it.fileName.toString(),
+                                ".",
+                                "-n",
+                                "test-namespace",
+                                "-f",
+                                "values.yaml",
+                                "-f",
+                                "test-values.yaml",
+                                "--output-dir",
+                                it.relativize(actualTestOutputDir).toString()),
                             it.toFile()
                         )
                         if (UPDATE_EXPECTED_TEST_OUTPUTS) {
