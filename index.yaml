@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   kronicle:
   - apiVersion: v2
+    created: "2021-10-13T07:55:46.168212488Z"
+    description: Kronicle https://kronicle.tech
+    digest: f2961e399288b48ef549e6592e3ef355d4b3b86addf61a7d053dde276c8919a7
+    name: kronicle
+    type: application
+    urls:
+    - https://github.com/kronicle-tech/kronicle-helm-charts/releases/download/kronicle-0.2.1/kronicle-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     created: "2021-10-13T06:52:11.054667852Z"
     description: Kronicle https://kronicle.tech
     digest: 232a8e380a6526c1a0a1a25a9af28475bee460cdcf15ededea178a503a225798
@@ -19,4 +28,4 @@ entries:
     urls:
     - https://github.com/kronicle-tech/kronicle-helm-charts/releases/download/kronicle-0.1.1/kronicle-0.1.1.tgz
     version: 0.1.1
-generated: "2021-10-13T06:52:11.054677252Z"
+generated: "2021-10-13T07:55:46.168223189Z"
